@@ -16,6 +16,7 @@
     "tests"
   ],
   "dependencies": {
-    "angular": "angularjs#^1.5.0"
+    "angular": "angularjs#^1.5.0",
+    "ui-select": "angular-ui-select#^0.14.9"
   }
 }
