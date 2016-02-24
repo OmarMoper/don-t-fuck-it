@@ -1,7 +1,15 @@
 <html ng-app="DontFuckIt">
   <head>
     <title> DON'T FUCK IT</title>
+
+    <link rel="stylesheet" href="./bower_components/angular-material/angular-material.min.css">
+
     <script src="./bower_components/angular/angular.min.js" type="text/javascript"></script>
+
+    <script src="./bower_components/angular-animate/angular-animate.min.js" type="text/javascript"></script>
+    <script src="./bower_components/angular-aria/angular-aria.min.js" type="text/javascript"></script>
+    <script src="./bower_components/angular-messages/angular-messages.min.js" type="text/javascript"></script>
+    <script src="./bower_components/angular-material/angular-material.min.js" type="text/javascript"></script>
 
     <script src="./src/app.js"></script>
     <script src="./src/controllers/MainController.js"></script>
@@ -11,18 +19,46 @@
     <h1> Don't fuck this job while touching it!</h1>
     <div class="job-selection">
       <label for="job">select a job</label>
-      <select option="jobs.list" name="job" ng-options="job as job.name for job in jobs.list" ng-model="issue" ng-change="loadJob(issue.id)">
+      <!-- <select option="jobs.list" name="job" ng-options="job as job.name for job in jobs.list" ng-model="issue" ng-change="loadJob(issue.id)"> -->
       </select>
+      <md-autocomplete
+        md-no-cache="true"
+        md-selected-item="issue"
+        md-search-text="searchIssue"
+        md-items="job in jobs.list | filter: {name: searchIssue}"
+        md-item-text="job.name"
+        md-search-text="searchIssue"
+        md-min-length="0"
+        md-selected-item-change="loadJob(issue.id)"
+        placeholder="Select a job">
+        <md-item-template>
+          <span md-highlight-text="searchIssue" md-highlight-flags="^i">{{job.name}}</span>
+        </md-item-template>
+        <md-not-found>No hay proyectos con ese nombre</md-not-found>
+      </md-autocomplete>
     </div>
     <div class="dashboard" ng-if="currentJob != null">
     	<h2>{{currentJob.name}}</h2>
-    	<select ng-model="currentSection" ng-options="section as section.name for section in currentJob.sections"></select>
+      <md-autocomplete
+        md-no-cache="true"
+        md-selected-item="currentSection"
+        md-search-text="searchSection"
+        md-items="section in currentJob.sections | filter: {name: searchSection}"
+        md-item-text="section.name"
+        md-search-text="searchSection"
+        md-min-length="0"
+        placeholder="Select a section">
+        <md-item-template>
+          <span md-highlight-text="searchSection" md-highlight-flags="^i">{{section.name}}</span>
+        </md-item-template>
+        <md-not-found>No hay secciones con ese nombre</md-not-found>
+      </md-autocomplete>
+    	<!-- <select ng-model="currentSection" ng-options="section as section.name for section in currentJob.sections"></select> -->
     	<div class="sections">
     		<div ng-repeat="section in currentJob.sections | filter: {id: currentSection.id}">
     			<h3>{{section.name}}</h3>
           <div ng-repeat="item in section.list">
-            <input type="checkbox" value="item.id" name="donfuck[{{currentJob.id}}][{{section.id}}][{{item.id}}]">
-            <label for="donfuck[{{currentJob.name}}][{{section.name}}]">{{item.name}}</label>
+            <md-checkbox>{{item.name}}</md-checkbox>
           </div>
     		</div>
     	</div>

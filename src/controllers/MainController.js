@@ -18,7 +18,7 @@
 		  $scope.jobs = {};
 		  $scope.issue = null;
 		  $scope.currentJob = null;
-		  $scope.currentSection = {'name': '', 'id': ''};
+		  $scope.currentSection = null;
 		}
 
 		/**
@@ -38,6 +38,7 @@
 	      $scope.currentJob = job;
 	    });
 		}
+
 		$scope.loadJob = loadJob;
 	});
 })();
