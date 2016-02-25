@@ -16,11 +16,10 @@
     <script src="./src/services/DontFuckItService.js"></script>
   </head>
   <body ng-controller="MainController">
-    <h1> Don't fuck this job while touching it!</h1>
+    <md-toolbar>
+      <h1> Don't fuck this job while touching it!</h1>
+    </md-toolbar>
     <div class="job-selection">
-      <label for="job">select a job</label>
-      <!-- <select option="jobs.list" name="job" ng-options="job as job.name for job in jobs.list" ng-model="issue" ng-change="loadJob(issue.id)"> -->
-      </select>
       <md-autocomplete
         md-no-cache="true"
         md-selected-item="issue"
@@ -30,7 +29,7 @@
         md-search-text="searchIssue"
         md-min-length="0"
         md-selected-item-change="loadJob(issue.id)"
-        placeholder="Select a job">
+        placeholder="Job">
         <md-item-template>
           <span md-highlight-text="searchIssue" md-highlight-flags="^i">{{job.name}}</span>
         </md-item-template>
@@ -47,13 +46,12 @@
         md-item-text="section.name"
         md-search-text="searchSection"
         md-min-length="0"
-        placeholder="Select a section">
+        placeholder="Section">
         <md-item-template>
           <span md-highlight-text="searchSection" md-highlight-flags="^i">{{section.name}}</span>
         </md-item-template>
         <md-not-found>No hay secciones con ese nombre</md-not-found>
       </md-autocomplete>
-    	<!-- <select ng-model="currentSection" ng-options="section as section.name for section in currentJob.sections"></select> -->
     	<div class="sections">
     		<div ng-repeat="section in currentJob.sections | filter: {id: currentSection.id}">
     			<h3>{{section.name}}</h3>
